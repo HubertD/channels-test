@@ -1,0 +1,23 @@
+<html>
+<body>
+<h1>Game</h1>
+{{ name|json_script:"name" }}
+<script>
+    const name = JSON.parse(document.getElementById('name').textContent);
+
+    const sock = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/wizard/'
+        + name
+        + '/'
+    );
+
+    sock.onmessage = function(e) { console.log("message", e); }
+    sock.onopen = function(e) { console.log("open", e); }
+    sock.onclose = function(e) { console.log("close", e); }
+    sock.onerror = function(e) { console.log("error", e); }
+
+</script>
+</body>
+</html>
